@@ -1,0 +1,27 @@
+.App{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &__title {
+        font-size: 40px;
+        font-weight: 600;
+    }
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    height: 40px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    &:hover {
+        opacity: .7;
+    }
+}

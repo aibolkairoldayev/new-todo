@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import s from './Filter.module.scss'
+
 interface FilterProps {
     onStatusChange: (status: string) => void;
 }
@@ -31,9 +33,9 @@ const Filter: React.FC<FilterProps> = ({ onStatusChange }) => {
     };
 
     return (
-        <div>
-            <span>Status: {filterStatus}</span>
-            <button onClick={handleStatusChange}>Filter by Status</button>
+        <div className={s.filter}>
+            <span className={s.show}>Показывать: {filterStatus}</span>
+            <button className={`btn ${s.btn}`} onClick={handleStatusChange}>Фильтровать по</button>
         </div>
     );
 };
