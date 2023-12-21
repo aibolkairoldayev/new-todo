@@ -11,8 +11,8 @@ const TodoList: React.FC = () => {
     const dispatch = useDispatch();
     const todos = useSelector((state: RootState) => state.todos.todos);
 
-    const [toggleStatus, setToggleStatus] = useState<'onwork' | 'done'>('onwork');
-    const [filterStatus, setFilterStatus] = useState<string>('all');
+    const [toggleStatus, setToggleStatus] = useState<'в работе' | 'выполнено'>('в работе');
+    const [filterStatus, setFilterStatus] = useState<string>('все');
 
     const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
     const [editedName, setEditedName] = useState('');
@@ -29,11 +29,11 @@ const TodoList: React.FC = () => {
     }, [editingTodoId, todos]);
 
     const handleToggleStatus = () => {
-        setToggleStatus((prevStatus) => (prevStatus === 'onwork' ? 'done' : 'onwork'));
+        setToggleStatus((prevStatus) => (prevStatus === 'в работе' ? 'выполнено' : 'в работе'));
     };
 
-    const handleUpdateStatus = (id: number, currentStatus: 'pending' | 'onwork' | 'done') => {
-        const newStatus = currentStatus === 'pending' ? 'onwork' : currentStatus === 'onwork' ? 'done' : 'pending';
+    const handleUpdateStatus = (id: number, currentStatus: 'в ожидании' | 'в работе' | 'выполнено') => {
+        const newStatus = currentStatus === 'в ожидании' ? 'в работе' : currentStatus === 'в работе' ? 'выполнено' : 'в ожидании';
         dispatch(updateTodoStatus({ id, status: newStatus }));
     };
 
@@ -61,7 +61,7 @@ const TodoList: React.FC = () => {
     };
 
     const filteredTodos =
-        filterStatus === 'all' ? todos : todos.filter((todo) => todo.status === filterStatus);
+        filterStatus === 'все' ? todos : todos.filter((todo) => todo.status === filterStatus);
 
     if (todos.length === 0) {
         return null;
@@ -73,22 +73,22 @@ const TodoList: React.FC = () => {
 
             <div className={s.items}>
                 {filteredTodos.map((todo) => (
-                    <div key={todo.id} className={`${s.item} ${todo.status}`}>
+                    <div key={todo.id} className={`${s.item} ${todo.status === 'выполнено' ? s.doneClass : todo.status === 'в работе' ? s.onWorkClass : s.defaultClass}`}>
                         {editingTodoId === todo.id ? (
                             // Форма редактирования
-                            <div>
-                                <input
+                            <div className={s.edit}>
+                                <input className={s.input}
+                                    defaultValue={editedName}
                                     onChange={(e) => setEditedName(e.target.value.slice(0, MAX_NAME_LENGTH))}
                                     maxLength={MAX_NAME_LENGTH}
                                     placeholder="Enter name"
                                 />
-                                <input
-                                    type="text"
+                                <textarea className={s.textarea}
                                     value={editedDesc}
                                     onChange={(e) => setEditedDesc(e.target.value)}
                                     placeholder="Enter description"
                                 />
-                                <button onClick={() => handleSave(todo.id)}>Save</button>
+                                <button className={`btn ${s.btn}`} onClick={() => handleSave(todo.id)}>Save</button>
                             </div>
                         ) : (
                             // Отображение задачи
@@ -96,7 +96,11 @@ const TodoList: React.FC = () => {
                                 <p className={s.name}>{todo.name}</p>
                                 <p className={s.text}>{todo.desc}</p>
                                 <p className={s.status}>{todo.status}</p>
-                                <button className={`btn ${s.change}`} onClick={() => handleUpdateStatus(todo.id, todo.status)}></button>
+                                <button className={`btn ${s.change}`} onClick={() => handleUpdateStatus(todo.id, todo.status)}>
+                                    {todo.status === 'в ожидании' && <img src="icons/pend.svg" alt="в ожидании" />}
+                                    {todo.status === 'в работе' && <img src="icons/work.svg" alt="On Work" />}
+                                    {todo.status === 'выполнено' && <img src="icons/done.svg" alt="выполнено" />}
+                                </button>
                                 <div className={s.buttons}>
                                     <button className={`btn ${s.update}`} onClick={() => handleEdit(todo.id, todo.name, todo.desc)}>Изменить</button>
                                     <button className={`btn ${s.delete}`} onClick={() => handleDelete(todo.id)}>Удалить</button>

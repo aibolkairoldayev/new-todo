@@ -8,7 +8,7 @@
 .item {
     margin: 0 15px;
     border-radius: 10px;
-    border: 1px solid #6b6868;
+    border: 2px solid #6b6868;
     padding: 6px 10px;
     box-sizing: border-box;
     position: relative;
@@ -19,6 +19,7 @@
     font-size: 17px;
     font-weight: 500;
     margin: 0 0 10px;
+    padding-right: 25px;
 }
 
 .text {
@@ -53,4 +54,45 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    padding: 0;
+    img {
+        width: 20px;
+        height: 100%;
+    }
+}
+
+.doneClass {
+    border: 2px solid green;
+}
+
+.onWorkClass {
+    border: 2px solid blue;
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid rgb(121, 121, 203);
+    padding: 10px;
+    margin-bottom: 13px;
+    box-sizing: border-box;
+}
+
+.textarea {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgb(121, 121, 203);
+    padding: 10px;
+    margin-bottom: 13px;
+    box-sizing: border-box;
+}
+
+.btn {
+    background-color: rgb(33, 215, 154);
+    color: #fff
 }

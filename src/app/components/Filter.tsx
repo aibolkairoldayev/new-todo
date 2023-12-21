@@ -7,25 +7,25 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({ onStatusChange }) => {
-    const [filterStatus, setFilterStatus] = useState<string>('all');
+    const [filterStatus, setFilterStatus] = useState<string>('все');
 
     const handleStatusChange = () => {
         let newStatus = '';
         switch (filterStatus) {
-            case 'all':
-                newStatus = 'pending';
+            case 'все':
+                newStatus = 'в ожидании';
                 break;
-            case 'pending':
-                newStatus = 'onwork';
+            case 'в ожидании':
+                newStatus = 'в работе';
                 break;
-            case 'onwork':
-                newStatus = 'done';
+            case 'в работе':
+                newStatus = 'выполнено';
                 break;
-            case 'done':
-                newStatus = 'all';
+            case 'выполнено':
+                newStatus = 'все';
                 break;
             default:
-                newStatus = 'all';
+                newStatus = 'все';
                 break;
         }
         setFilterStatus(newStatus);

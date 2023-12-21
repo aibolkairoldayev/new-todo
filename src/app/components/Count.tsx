@@ -6,7 +6,7 @@ import s from './Count.module.scss'
 
 const Count: React.FC = () => {
     const doneTodos = useSelector((state: RootState) =>
-        state.todos.todos.filter((todo) => todo.status === 'done')
+        state.todos.todos.filter((todo) => todo.status === 'выполнено')
     );
 
     return (

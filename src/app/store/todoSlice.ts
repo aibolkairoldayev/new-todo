@@ -4,7 +4,7 @@ interface Todo {
     id: number;
     name: string;
     desc: string;
-    status: 'pending' | 'onwork' | 'done';
+    status: 'в ожидании' | 'в работе' | 'выполнено';
 }
 
 interface TodoState {
@@ -24,12 +24,12 @@ const todoSlice = createSlice({
                 id: state.todos.length + 1,
                 name: action.payload.name,
                 desc: action.payload.desc,
-                status: 'pending',
+                status: 'в ожидании',
             };
             state.todos.push(newTodo);
         },
 
-        updateTodoStatus: (state, action: PayloadAction<{ id: number; status: 'pending' | 'onwork' | 'done' }>) => {
+        updateTodoStatus: (state, action: PayloadAction<{ id: number; status: 'в ожидании' | 'в работе' | 'выполнено' }>) => {
             const todoToUpdate = state.todos.find(todo => todo.id === action.payload.id);
             if (todoToUpdate) {
                 todoToUpdate.status = action.payload.status;
