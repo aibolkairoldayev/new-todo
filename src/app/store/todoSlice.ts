@@ -28,9 +28,16 @@ const todoSlice = createSlice({
             };
             state.todos.push(newTodo);
         },
-        // Добавьте другие редюсеры, такие как updateTodo, deleteTodo, и т.д.
+
+        updateTodoStatus: (state, action: PayloadAction<{ id: number; status: 'pending' | 'onwork' | 'done' }>) => {
+            const todoToUpdate = state.todos.find(todo => todo.id === action.payload.id);
+            if (todoToUpdate) {
+                todoToUpdate.status = action.payload.status;
+            }
+        },
+
     },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, updateTodoStatus } = todoSlice.actions;
 export default todoSlice.reducer;
